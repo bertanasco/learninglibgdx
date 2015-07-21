@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Chapter02 implements ApplicationListener {
     /* Orthographic viewport
@@ -80,9 +81,12 @@ public class Chapter02 implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
         final float dps = 10.0f;
-
-        rotation = ((rotation + Gdx.graphics.getDeltaTime()) * dps) % 350;
-        sprite.setRotation(rotation);
+        float degreesPerSecond = 10.0f;
+        rotation = (rotation+ Gdx.graphics.getDeltaTime() *
+                degreesPerSecond) % 360;
+        final float shakeAmplitudeInDegrees = 5.0f;
+        float shake = MathUtils.sin(rotation) * shakeAmplitudeInDegrees;
+        sprite.setRotation(shake);
 		sprite.draw(batch);
 		batch.end();
 	}
